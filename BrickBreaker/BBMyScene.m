@@ -8,6 +8,7 @@
 
 #import "BBMyScene.h"
 #import "BBBrick.h"
+#import "BBMenu.h"
 
 @interface BBMyScene()
 
@@ -26,6 +27,7 @@
     BOOL _positionBall;
     NSArray *_hearts;
     SKLabelNode *_levelDisplay;
+    BBMenu *_menu;
 }
 
 static const int kFinalLevelNumber = 3;
@@ -87,6 +89,11 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
         _paddle.physicsBody.categoryBitMask = kPaddleCategory;
         [self addChild:_paddle];
         
+        // Setup menu.
+        _menu = [[BBMenu alloc] init];
+        _menu.position = CGPointMake(self.size.width * 0.5, self.size.height * 0.5);
+        [self addChild:_menu];
+        
         // Set initial values.
         _ballSpeed = 250.0;
         _ballReleased = NO;
@@ -133,6 +140,7 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
 {
     _currentLevel = currentLevel;
     _levelDisplay.text = [NSString stringWithFormat:@"LEVEL %d", currentLevel];
+    _menu.levelNumber = currentLevel;
 }
 
 -(void)loadLevel:(int)levelNumber
@@ -253,12 +261,20 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (_positionBall) {
-        _positionBall = NO;
-        _ballReleased = YES;
-        [_paddle removeAllChildren];
-        [self createBallWithLocation:CGPointMake(_paddle.position.x, _paddle.position.y + _paddle.size.height)
-                         andVelocity:CGVectorMake(0, _ballSpeed)];
+    if (_menu.hidden) {
+        if (_positionBall) {
+            _positionBall = NO;
+            _ballReleased = YES;
+            [_paddle removeAllChildren];
+            [self createBallWithLocation:CGPointMake(_paddle.position.x, _paddle.position.y + _paddle.size.height)
+                             andVelocity:CGVectorMake(0, _ballSpeed)];
+        }
+    } else {
+        for (UITouch *touch in touches) {
+            if ([[_menu nodeAtPoint:[touch locationInNode:_menu]].name isEqualToString:@"Play Button"]) {
+                [_menu hide];
+            }
+        }
     }
 }
 
@@ -266,8 +282,10 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
 {
     /* Called when a touch begins */
     for (UITouch *touch in touches) {
-        if (!_ballReleased) {
-            _positionBall = YES;
+        if (_menu.hidden) {
+            if (!_ballReleased) {
+                _positionBall = YES;
+            }
         }
         _touchLocation = [touch locationInNode:self];
     }
@@ -276,24 +294,26 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    for (UITouch *touch in touches) {
-        // Calculate how far touch has moved on x axis
-        CGFloat xMovement = [touch locationInNode:self].x - _touchLocation.x;
-        // Move paddle distance of touch.
-        _paddle.position = CGPointMake(_paddle.position.x + xMovement, _paddle.position.y);
-
-        CGFloat paddleMinX = _paddle.size.width * 0.25;
-        CGFloat paddleMaxX = self.size.width + (_paddle.size.width * 0.25);
-        
-        // Cap paddles position so it remains on screen
-        if (_paddle.position.x < paddleMinX) {
-            _paddle.position = CGPointMake(paddleMinX, _paddle.position.y);
+    if (_menu.hidden) {
+        for (UITouch *touch in touches) {
+            // Calculate how far touch has moved on x axis
+            CGFloat xMovement = [touch locationInNode:self].x - _touchLocation.x;
+            // Move paddle distance of touch.
+            _paddle.position = CGPointMake(_paddle.position.x + xMovement, _paddle.position.y);
+            
+            CGFloat paddleMinX = _paddle.size.width * 0.25;
+            CGFloat paddleMaxX = self.size.width + (_paddle.size.width * 0.25);
+            
+            // Cap paddles position so it remains on screen
+            if (_paddle.position.x < paddleMinX) {
+                _paddle.position = CGPointMake(paddleMinX, _paddle.position.y);
+            }
+            if (_paddle.position.x > paddleMaxX) {
+                _paddle.position = CGPointMake(paddleMaxX, _paddle.position.y);
+            }
+            
+            _touchLocation = [touch locationInNode:self];
         }
-        if (_paddle.position.x > paddleMaxX) {
-            _paddle.position = CGPointMake(paddleMaxX, _paddle.position.y);
-        }
-        
-        _touchLocation = [touch locationInNode:self];
     }
 }
 
@@ -320,13 +340,16 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
         }
         [self loadLevel:self.currentLevel];
         [self newBall];
+        [_menu show];
     } else if (_ballReleased && !_positionBall && ![self childNodeWithName: @"ball"]) {
         // Lost all balls.
         self.lives--;
         if (self.lives < 0) {
+            // Game over.
             self.lives = 2;
             self.currentLevel = 1;
             [self loadLevel:self.currentLevel];
+            [_menu show];
         }
         
         [self newBall];

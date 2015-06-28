@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A95FD8281B3DFFC500B3F576 /* BrickExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = A95FD8261B3DFFC500B3F576 /* BrickExplosion.sks */; };
 		A95FD8291B3DFFC500B3F576 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = A95FD8271B3DFFC500B3F576 /* spark.png */; };
+		A95FD82C1B3E110000B3F576 /* MenuPanel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A95FD82A1B3E110000B3F576 /* MenuPanel@2x.png */; };
+		A95FD82D1B3E110000B3F576 /* Button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A95FD82B1B3E110000B3F576 /* Button@2x.png */; };
 		A968C2AE1B27973100B10C0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A968C2AD1B27973100B10C0C /* Foundation.framework */; };
 		A968C2B01B27973100B10C0C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A968C2AF1B27973100B10C0C /* CoreGraphics.framework */; };
 		A968C2B21B27973100B10C0C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A968C2B11B27973100B10C0C /* UIKit.framework */; };
@@ -28,6 +30,7 @@
 		A968C2ED1B2797CC00B10C0C /* BallBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A968C2EA1B2797CC00B10C0C /* BallBlue@2x.png */; };
 		A968C2EE1B2797CC00B10C0C /* BrickGreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A968C2EB1B2797CC00B10C0C /* BrickGreen@2x.png */; };
 		A968C2EF1B2797CC00B10C0C /* Paddle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A968C2EC1B2797CC00B10C0C /* Paddle@2x.png */; };
+		A974975C1B40A115006AAF0C /* BBMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A974975B1B40A115006AAF0C /* BBMenu.m */; };
 		A978301A1B337D0B001A42F6 /* BrickBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A97830191B337D0B001A42F6 /* BrickBlue@2x.png */; };
 		A978301D1B337F1D001A42F6 /* BBBrick.m in Sources */ = {isa = PBXBuildFile; fileRef = A978301C1B337F1D001A42F6 /* BBBrick.m */; };
 		A98DE3701B3A07D900B88C1B /* BrickGrey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A98DE36F1B3A07D900B88C1B /* BrickGrey@2x.png */; };
@@ -48,6 +51,8 @@
 /* Begin PBXFileReference section */
 		A95FD8261B3DFFC500B3F576 /* BrickExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BrickExplosion.sks; sourceTree = "<group>"; };
 		A95FD8271B3DFFC500B3F576 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		A95FD82A1B3E110000B3F576 /* MenuPanel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuPanel@2x.png"; sourceTree = "<group>"; };
+		A95FD82B1B3E110000B3F576 /* Button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button@2x.png"; sourceTree = "<group>"; };
 		A968C2AA1B27973100B10C0C /* BrickBreaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrickBreaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A968C2AD1B27973100B10C0C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A968C2AF1B27973100B10C0C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -73,6 +78,8 @@
 		A968C2EA1B2797CC00B10C0C /* BallBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BallBlue@2x.png"; sourceTree = "<group>"; };
 		A968C2EB1B2797CC00B10C0C /* BrickGreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BrickGreen@2x.png"; sourceTree = "<group>"; };
 		A968C2EC1B2797CC00B10C0C /* Paddle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Paddle@2x.png"; sourceTree = "<group>"; };
+		A974975A1B40A115006AAF0C /* BBMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMenu.h; sourceTree = "<group>"; };
+		A974975B1B40A115006AAF0C /* BBMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMenu.m; sourceTree = "<group>"; };
 		A97830191B337D0B001A42F6 /* BrickBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BrickBlue@2x.png"; sourceTree = "<group>"; };
 		A978301B1B337F1D001A42F6 /* BBBrick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBrick.h; sourceTree = "<group>"; };
 		A978301C1B337F1D001A42F6 /* BBBrick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBrick.m; sourceTree = "<group>"; };
@@ -146,6 +153,8 @@
 				A968C2C11B27973100B10C0C /* Main.storyboard */,
 				A968C2C41B27973100B10C0C /* BBViewController.h */,
 				A968C2C51B27973100B10C0C /* BBViewController.m */,
+				A974975A1B40A115006AAF0C /* BBMenu.h */,
+				A974975B1B40A115006AAF0C /* BBMenu.m */,
 				A978301B1B337F1D001A42F6 /* BBBrick.h */,
 				A978301C1B337F1D001A42F6 /* BBBrick.m */,
 				A968C2C71B27973100B10C0C /* BBMyScene.h */,
@@ -197,6 +206,8 @@
 				A968C2EC1B2797CC00B10C0C /* Paddle@2x.png */,
 				A991B5651B3CABFE000DAB7B /* HeartEmpty@2x.png */,
 				A991B5661B3CABFE000DAB7B /* HeartFull@2x.png */,
+				A95FD82A1B3E110000B3F576 /* MenuPanel@2x.png */,
+				A95FD82B1B3E110000B3F576 /* Button@2x.png */,
 			);
 			path = Graphics;
 			sourceTree = "<group>";
@@ -284,8 +295,10 @@
 				A968C2BA1B27973100B10C0C /* InfoPlist.strings in Resources */,
 				A968C2EF1B2797CC00B10C0C /* Paddle@2x.png in Resources */,
 				A968C2CD1B27973200B10C0C /* Images.xcassets in Resources */,
+				A95FD82D1B3E110000B3F576 /* Button@2x.png in Resources */,
 				A991B5671B3CABFE000DAB7B /* HeartEmpty@2x.png in Resources */,
 				A968C2C31B27973100B10C0C /* Main.storyboard in Resources */,
+				A95FD82C1B3E110000B3F576 /* MenuPanel@2x.png in Resources */,
 				A978301A1B337D0B001A42F6 /* BrickBlue@2x.png in Resources */,
 				A95FD8281B3DFFC500B3F576 /* BrickExplosion.sks in Resources */,
 				A968C2ED1B2797CC00B10C0C /* BallBlue@2x.png in Resources */,
@@ -312,6 +325,7 @@
 				A968C2C01B27973100B10C0C /* BBAppDelegate.m in Sources */,
 				A968C2C91B27973100B10C0C /* BBMyScene.m in Sources */,
 				A978301D1B337F1D001A42F6 /* BBBrick.m in Sources */,
+				A974975C1B40A115006AAF0C /* BBMenu.m in Sources */,
 				A968C2BC1B27973100B10C0C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
