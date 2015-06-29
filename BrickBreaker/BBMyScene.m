@@ -28,19 +28,24 @@
     NSArray *_hearts;
     SKLabelNode *_levelDisplay;
     BBMenu *_menu;
+    SKAction *_ballBounceSound;
+    SKAction *_paddleBounceSound;
+    SKAction *_levelUpSound;
+    SKAction *_loseLifeSound;
 }
 
 static const int kFinalLevelNumber = 3;
 
 static const uint32_t kBallCategory   = 0x1 << 0;
 static const uint32_t kPaddleCategory = 0x1 << 1;
+static const uint32_t kEdgeCategory   = 0x1 << 2;
 
 -(id)initWithSize:(CGSize)size
 {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
+        self.backgroundColor = [SKColor whiteColor];
         
         // Turn off gravity.
         self.physicsWorld.gravity = CGVectorMake(0.0, 0.0);
@@ -49,9 +54,10 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
         
         // Setup edge.
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, -128, size.width, size.height + 100)];
+        self.physicsBody.categoryBitMask = kEdgeCategory;
         
         // Add HUD bar.
-        SKSpriteNode *bar = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(size.width, 28)];
+        SKSpriteNode *bar = [SKSpriteNode spriteNodeWithColor:[SKColor colorWithRed:0.831 green:0.831 blue:0.831 alpha:1.0] size:CGSizeMake(size.width, 28)];
         bar.position = CGPointMake(0, size.height);
         bar.anchorPoint = CGPointMake(0, 1);
         [self addChild:bar];
@@ -59,13 +65,18 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
         // Setup level display.
         _levelDisplay = [SKLabelNode labelNodeWithFontNamed:@"Futura"];
         _levelDisplay.text = @"LEVEL 1";
-        _levelDisplay.fontColor = [SKColor whiteColor];
+        _levelDisplay.fontColor = [SKColor grayColor];
         _levelDisplay.fontSize = 15;
         _levelDisplay.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
         _levelDisplay.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
         _levelDisplay.position = CGPointMake(10, -10);
         [bar addChild:_levelDisplay];
         
+        // Setup sounds.
+        _ballBounceSound = [SKAction playSoundFileNamed:@"BallBounce.caf" waitForCompletion:NO];
+        _paddleBounceSound = [SKAction playSoundFileNamed:@"PaddleBounce.caf" waitForCompletion:NO];
+        _levelUpSound = [SKAction playSoundFileNamed:@"LevelUp.caf" waitForCompletion:NO];
+        _loseLifeSound = [SKAction playSoundFileNamed:@"LoseLife.caf" waitForCompletion:NO];
         
         // Setup brick layer.
         _brickLayer = [SKNode node];
@@ -214,7 +225,7 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
     ball.physicsBody.restitution = 1.0;
     ball.physicsBody.velocity = velocity;
     ball.physicsBody.categoryBitMask = kBallCategory;
-    ball.physicsBody.contactTestBitMask = kPaddleCategory | kBrickCategory;
+    ball.physicsBody.contactTestBitMask = kPaddleCategory | kBrickCategory | kEdgeCategory;
     [self addChild:ball];
     
     return ball;
@@ -233,10 +244,15 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
         secondBody = contact.bodyB;
     }
     
+    if (firstBody.categoryBitMask == kBallCategory && secondBody.categoryBitMask == kEdgeCategory) {
+        [self runAction:_ballBounceSound];
+    }
+    
     if (firstBody.categoryBitMask == kBallCategory && secondBody.categoryBitMask == kBrickCategory) {
         if ([secondBody.node respondsToSelector:@selector(hit)]) {
             [secondBody.node performSelector:@selector(hit)];
         }
+        [self runAction:_ballBounceSound];
     }
 
     
@@ -255,6 +271,7 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
             // Set ball's velocity based on direction and speed.
             firstBody.velocity = CGVectorMake(direction.dx * _ballSpeed, direction.dy * _ballSpeed);
         }
+        [self runAction:_paddleBounceSound];
     }
     
 }
@@ -304,6 +321,11 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
             CGFloat paddleMinX = _paddle.size.width * 0.25;
             CGFloat paddleMaxX = self.size.width + (_paddle.size.width * 0.25);
             
+            if (_positionBall) {
+                paddleMinX = _paddle.size.width * 0.5;
+                paddleMaxX = self.size.width - (_paddle.size.width * 0.5);
+            }
+            
             // Cap paddles position so it remains on screen
             if (_paddle.position.x < paddleMinX) {
                 _paddle.position = CGPointMake(paddleMinX, _paddle.position.y);
@@ -341,6 +363,7 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
         [self loadLevel:self.currentLevel];
         [self newBall];
         [_menu show];
+        [self runAction:_levelUpSound];
     } else if (_ballReleased && !_positionBall && ![self childNodeWithName: @"ball"]) {
         // Lost all balls.
         self.lives--;
@@ -353,6 +376,7 @@ static const uint32_t kPaddleCategory = 0x1 << 1;
         }
         
         [self newBall];
+        [self runAction:_loseLifeSound];
     }
 }
 

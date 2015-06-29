@@ -9,6 +9,9 @@
 #import "BBBrick.h"
 
 @implementation BBBrick
+{
+    SKAction *_brickSmashSound;
+}
 
 -(instancetype)initWithType:(BrickType)type
 {
@@ -35,7 +38,9 @@
         self.physicsBody.categoryBitMask = kBrickCategory;
         self.physicsBody.dynamic = NO;
         self.type = type;
-        self.indestructible = (type == Grey);        
+        self.indestructible = (type == Grey);
+        
+        _brickSmashSound = [SKAction playSoundFileNamed:@"BrickSmash.caf" waitForCompletion:NO];
     }
     
     return self;
@@ -46,6 +51,7 @@
     switch (self.type) {
         case Green:
             [self createExplosion];
+            [self runAction:_brickSmashSound];
             [self runAction:[SKAction removeFromParent]];
             
             break;
