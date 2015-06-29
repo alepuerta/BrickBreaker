@@ -35,6 +35,7 @@
 		A96F88C21B41CD4F001684CB /* LevelUp.caf in Resources */ = {isa = PBXBuildFile; fileRef = A96F88BD1B41CD4F001684CB /* LevelUp.caf */; };
 		A96F88C31B41CD4F001684CB /* LoseLife.caf in Resources */ = {isa = PBXBuildFile; fileRef = A96F88BE1B41CD4F001684CB /* LoseLife.caf */; };
 		A96F88C41B41CD4F001684CB /* PaddleBounce.caf in Resources */ = {isa = PBXBuildFile; fileRef = A96F88BF1B41CD4F001684CB /* PaddleBounce.caf */; };
+		A96F88C61B41D2BD001684CB /* BrickYellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A96F88C51B41D2BD001684CB /* BrickYellow@2x.png */; };
 		A974975C1B40A115006AAF0C /* BBMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A974975B1B40A115006AAF0C /* BBMenu.m */; };
 		A978301A1B337D0B001A42F6 /* BrickBlue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A97830191B337D0B001A42F6 /* BrickBlue@2x.png */; };
 		A978301D1B337F1D001A42F6 /* BBBrick.m in Sources */ = {isa = PBXBuildFile; fileRef = A978301C1B337F1D001A42F6 /* BBBrick.m */; };
@@ -88,6 +89,7 @@
 		A96F88BD1B41CD4F001684CB /* LevelUp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LevelUp.caf; sourceTree = "<group>"; };
 		A96F88BE1B41CD4F001684CB /* LoseLife.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LoseLife.caf; sourceTree = "<group>"; };
 		A96F88BF1B41CD4F001684CB /* PaddleBounce.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PaddleBounce.caf; sourceTree = "<group>"; };
+		A96F88C51B41D2BD001684CB /* BrickYellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BrickYellow@2x.png"; sourceTree = "<group>"; };
 		A974975A1B40A115006AAF0C /* BBMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMenu.h; sourceTree = "<group>"; };
 		A974975B1B40A115006AAF0C /* BBMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMenu.m; sourceTree = "<group>"; };
 		A97830191B337D0B001A42F6 /* BrickBlue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BrickBlue@2x.png"; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				A968C2EB1B2797CC00B10C0C /* BrickGreen@2x.png */,
 				A97830191B337D0B001A42F6 /* BrickBlue@2x.png */,
 				A98DE36F1B3A07D900B88C1B /* BrickGrey@2x.png */,
+				A96F88C51B41D2BD001684CB /* BrickYellow@2x.png */,
 				A968C2EC1B2797CC00B10C0C /* Paddle@2x.png */,
 				A991B5651B3CABFE000DAB7B /* HeartEmpty@2x.png */,
 				A991B5661B3CABFE000DAB7B /* HeartFull@2x.png */,
@@ -326,6 +329,7 @@
 				A95FD8281B3DFFC500B3F576 /* BrickExplosion.sks in Resources */,
 				A96F88C21B41CD4F001684CB /* LevelUp.caf in Resources */,
 				A96F88C41B41CD4F001684CB /* PaddleBounce.caf in Resources */,
+				A96F88C61B41D2BD001684CB /* BrickYellow@2x.png in Resources */,
 				A96F88C31B41CD4F001684CB /* LoseLife.caf in Resources */,
 				A96F88C01B41CD4F001684CB /* BallBounce.caf in Resources */,
 				A96F88C11B41CD4F001684CB /* BrickSmash.caf in Resources */,

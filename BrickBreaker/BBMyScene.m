@@ -170,7 +170,7 @@ static const uint32_t kEdgeCategory   = 0x1 << 2;
                       ];
             break;
         case 2:
-            level = @[@[@1,@1,@2,@2,@1,@1],
+            level = @[@[@4,@1,@2,@2,@1,@4],
                       @[@2,@2,@0,@0,@2,@2],
                       @[@2,@0,@0,@0,@0,@2],
                       @[@0,@0,@1,@1,@0,@0],
@@ -226,9 +226,22 @@ static const uint32_t kEdgeCategory   = 0x1 << 2;
     ball.physicsBody.velocity = velocity;
     ball.physicsBody.categoryBitMask = kBallCategory;
     ball.physicsBody.contactTestBitMask = kPaddleCategory | kBrickCategory | kEdgeCategory;
+    ball.physicsBody.collisionBitMask = kPaddleCategory | kBrickCategory | kEdgeCategory;
     [self addChild:ball];
     
     return ball;
+}
+
+-(void)spawnExtraBall:(CGPoint)position
+{
+    CGVector direction;
+    if (arc4random_uniform(2) == 0) {
+        direction = CGVectorMake(cosf(M_PI_4), sinf(M_PI_4));
+    } else {
+        direction = CGVectorMake(cosf(M_PI * 0.75), sinf(M_PI * 0.75));
+    }
+    
+    [self createBallWithLocation:position andVelocity:CGVectorMake(direction.dx * _ballSpeed, direction.dy * _ballSpeed)];
 }
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
@@ -251,6 +264,10 @@ static const uint32_t kEdgeCategory   = 0x1 << 2;
     if (firstBody.categoryBitMask == kBallCategory && secondBody.categoryBitMask == kBrickCategory) {
         if ([secondBody.node respondsToSelector:@selector(hit)]) {
             [secondBody.node performSelector:@selector(hit)];
+            
+            if (((BBBrick*)secondBody.node).spawnsExtraBall) {
+                [self spawnExtraBall:[_brickLayer convertPoint:secondBody.node.position toNode:self]];
+            }
         }
         [self runAction:_ballBounceSound];
     }
